@@ -29,6 +29,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'WebPage'
 ]
 
 MIDDLEWARE = [
