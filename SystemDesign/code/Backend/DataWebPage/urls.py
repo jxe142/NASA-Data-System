@@ -18,14 +18,15 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib.auth.views import login #logout
-from WebPage.views import updateSub, logOut, register
+from WebPage.views import logOut, register, home, updateSub
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^login$', login, {'template_name':'login.html'}, name='login'),
     url(r'^logout$', logOut, name='logout'),
-    url(r'^home', updateSub, name='home'),
-    url(r'^register$', register, name='register')
+    url(r'^home', home, name='home'),
+    url(r'^register$', register, name='register'),
+    url(r'^updateSub$', updateSub, name='Update_Sub')
 
 ]
 

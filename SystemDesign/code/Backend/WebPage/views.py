@@ -67,12 +67,10 @@ def register(request):
             newUser = User()
             newUser.username = userName
             newUser.email = userName
-            newUser.password = password
+            newUser.set_password(password)
             newUser.first_name = firstN
             newUser.last_name = lastN
             newUser.save()
-
-
 
             print('Made the user')
 
@@ -99,6 +97,31 @@ def register(request):
 
 # Used to let users update their subscription to the site
 # @login_required
-def updateSub(request):
+def home(request):
     print('We are home')
     return render(request, 'home.html')
+
+@csrf_exempt
+@login_required
+def updateSub(request):
+    if request.method == 'POST':
+        print('POST')
+        user = None
+        if request.user.is_authenticated:
+            #Take the user payment
+            user = request.user
+
+            #Add the user to the paid group
+            paidUser, created = Group.objects.get_or_create(name='Paid User') 
+            paidUser.user_set.add(user)
+            print('Added to the group')
+
+            return HttpResponse(200, 'You are now a paid user')
+    else:
+        print(request.method)
+
+    return HttpResponse(400, 'You need to be logined in order to gain a licences')
+
+
+ 
+
