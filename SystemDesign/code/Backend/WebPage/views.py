@@ -91,10 +91,6 @@ def register(request):
     
     return HttpResponse(200, 'User Has Been made')
 
-
-
-
-
 # Used to let users update their subscription to the site
 # @login_required
 def home(request):
