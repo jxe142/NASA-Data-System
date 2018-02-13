@@ -71,12 +71,12 @@ def register(request):
 # @login_required
 def home(request):
     print('We are home')
-    file = NasaFiles.objects.get(pk=1118)
-    print(file.file)
-    context_dict = {}
-    context_dict['file'] = file.file
+    # file = NasaFiles.objects.get(pk=1118)
+    # print(file.file)
+    # context_dict = {}
+    # context_dict['file'] = file.file
 
-    return render(request, 'home.html', context=context_dict)
+    return render(request, 'index.html')
 
 @csrf_exempt
 @login_required

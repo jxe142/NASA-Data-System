@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^home', home, name='home'),
     url(r'^register$', register, name='register'),
     url(r'^updateSub$', updateSub, name='Update_Sub'),
-    url(r'^files$', makeFileObjects, name='makefiles'),
+    url(r'^makeFiles$', makeFileObjects, name='makefiles'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
