@@ -6,37 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.contenttypes.models import ContentType
-import os, requests
+import os
 from django.conf import settings
-from django.core.files import File
-from django.template import Context
-
-
-# Used to allow people to login
-# def login(request):
-
-#     if request.POST:
-
-
-#         userName = request.POST.get('username')
-#         password = request.POST.get('password')
-#         currentUser = authenticate(request, username=userName, password=password)
-#         if currentUser is not None:
-#             login(request, currentUser)
-#             #And redirect the user to the home page
-
-#         #Try to login with the email
-#         else:
-#             email = request.POST['email']
-#             currentUser = authenticate(request, email=email, password=password)
-#             if currentUser is not None:
-#                 login(request, currentUser)
-
-#             #The user doesnt exist
-#             else:
-#                 return HTTPResponse(401, 'Username, Email or Password failed try again')
-
-#     return render(request, 'login.html')
 
 @login_required
 def logOut(request):
@@ -170,5 +141,30 @@ def makeFileObjects(request):
                 currentFile.type = currentType
                 currentFile.save()
 
-
     return HttpResponse(200, 'It worked')
+
+# Used to allow people to login
+# def login(request):
+
+#     if request.POST:
+
+
+#         userName = request.POST.get('username')
+#         password = request.POST.get('password')
+#         currentUser = authenticate(request, username=userName, password=password)
+#         if currentUser is not None:
+#             login(request, currentUser)
+#             #And redirect the user to the home page
+
+#         #Try to login with the email
+#         else:
+#             email = request.POST['email']
+#             currentUser = authenticate(request, email=email, password=password)
+#             if currentUser is not None:
+#                 login(request, currentUser)
+
+#             #The user doesnt exist
+#             else:
+#                 return HTTPResponse(401, 'Username, Email or Password failed try again')
+
+#     return render(request, 'login.html')
