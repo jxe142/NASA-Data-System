@@ -1,4 +1,5 @@
 from django.contrib import admin
-# from models import NasaFiles
+from .models import NasaFiles
 
 # Register your models here.
+admin.site.register(NasaFiles)

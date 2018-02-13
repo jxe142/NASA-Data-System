@@ -7,5 +7,5 @@ class NasaFiles(models.Model):
     numOfDownloads = models.IntegerField(default=0)
     timeStamp = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True, db_index=True)
-    file = models.FileField(unique=True)
+    file = models.FileField()
 

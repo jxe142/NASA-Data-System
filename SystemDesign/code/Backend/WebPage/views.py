@@ -6,6 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.contenttypes.models import ContentType
+import os, requests
+from django.conf import settings
+from django.core.files import File
+from django.template import Context
+
 
 # Used to allow people to login
 # def login(request):
@@ -95,7 +100,12 @@ def register(request):
 # @login_required
 def home(request):
     print('We are home')
-    return render(request, 'home.html')
+    file = NasaFiles.objects.get(pk=1118)
+    print(file.file)
+    context_dict = {}
+    context_dict['file'] = file.file
+
+    return render(request, 'home.html', context=context_dict)
 
 @csrf_exempt
 @login_required
@@ -119,5 +129,31 @@ def updateSub(request):
     return HttpResponse(400, 'You need to be logined in order to gain a licences')
 
 
- 
+def makeFileObjects(request):
+    rootDir = settings.MEDIA_ROOT
+    request = 'http://localhost:8000/media'
 
+    for dirName, subdirList, fileList in os.walk(rootDir):
+        print('Found directory: %s' % dirName)
+
+        #here we make the file object for each of the objects
+        for fname in fileList:
+            path = dirName
+            rPath = path.split("media")
+
+            if(rPath[1] == ""):
+                print(fname)
+                currentFile = NasaFiles()
+                currentFile.name = fname
+                currentFile.file = fname
+                currentFile.save()
+            else:
+                print(rPath[1])
+                print(fname)
+                currentFile = NasaFiles()
+                currentFile.name = fname
+                currentFile.file = rPath[1] + '/'+ fname
+                currentFile.save()
+
+
+    return HttpResponse(200, 'It worked')

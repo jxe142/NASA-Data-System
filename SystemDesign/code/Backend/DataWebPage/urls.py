@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib.auth.views import login #logout
-from WebPage.views import logOut, register, home, updateSub
+from WebPage.views import logOut, register, home, updateSub, makeFileObjects
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,9 +27,8 @@ urlpatterns = [
     url(r'^logout$', logOut, name='logout'),
     url(r'^home', home, name='home'),
     url(r'^register$', register, name='register'),
-    url(r'^updateSub$', updateSub, name='Update_Sub')
+    url(r'^updateSub$', updateSub, name='Update_Sub'),
+    url(r'^files$', makeFileObjects, name='makefiles'),
 
-]
 
-
-# if settings.
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
