@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import NasaFiles
+from .models import NasaFiles, FileType
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -135,24 +135,39 @@ def makeFileObjects(request):
 
     for dirName, subdirList, fileList in os.walk(rootDir):
         print('Found directory: %s' % dirName)
+        path = dirName
+        rPath = path.split("media")
+
+        if rPath[1] != "":
+            typeName = rPath[1].replace("/","")
+            currentType = FileType()
+            currentType.fileTypeName = typeName
+            currentType.save()
+        else:
+            currentType = FileType()
+            currentType.fileTypeName = "General"
+            currentType.save()
 
         #here we make the file object for each of the objects
         for fname in fileList:
-            path = dirName
-            rPath = path.split("media")
 
             if(rPath[1] == ""):
+                pass
                 print(fname)
+                print(rPath)
                 currentFile = NasaFiles()
                 currentFile.name = fname
                 currentFile.file = fname
+                currentFile.type = currentType
                 currentFile.save()
             else:
-                print(rPath[1])
+                pass
+                print(rPath)
                 print(fname)
                 currentFile = NasaFiles()
                 currentFile.name = fname
                 currentFile.file = rPath[1] + '/'+ fname
+                currentFile.type = currentType
                 currentFile.save()
 
 
