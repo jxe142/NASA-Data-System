@@ -25,11 +25,12 @@
       </ul>
         {% endif %}
 
+        {% if user.is_authenticated == False %}
       <ul class="right hide-on-med-and-down">
         <li><a href="register">Register</a></li>
       </ul>
 
-        {% if user.is_authenticated == False %}
+
 	  <ul class="right hide-on-med-and-down">
         <li><a href="login">Login</a></li>
       </ul>
@@ -272,6 +273,16 @@ FILES HERE....
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src=" {% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %} "></script>
+  <script type="application/javascript">
+    $(document).ready(function () {
+      if (window.location.href.indexOf('#') == 0) {
+            let hash = window.location.href.split('#')[1];
+            let hashTop = document.querySelector(`#${hash}`).offsetTop;
+            window.scrollTop = hashTop;
+        }
+      });
+
+  </script>
 
   </body>
 </html>

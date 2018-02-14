@@ -43,11 +43,18 @@
 	  <ul class="right hide-on-med-and-down">
         <li><a href="#">Register</a></li>
       </ul>
+
+        {% if user.is_authenticated == False %}
+	  <ul class="right hide-on-med-and-down">
+        <li><a href="login">Login</a></li>
+      </ul>
+        {% endif %}
+
 	   <ul class="right hide-on-med-and-down">
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="home#contact">Contact Us</a></li>
       </ul>
 	  <ul class="right hide-on-med-and-down">
-        <li><a href="#">Data Access</a></li>
+        <li><a href="home#data">Data Access</a></li>
       </ul>
         <ul class="right hide-on-med-and-down">
         <li><a href="home">Home</a></li>
@@ -73,23 +80,23 @@
              {% csrf_token %}
 		 <div class="row">
         <div class="input-field col s6">
-          <input id="username" type="email" class="validate" name="username">
+          <input id="username" type="email" class="validate" name="username" required>
           <label for="username">Enter your email addresss</label>
         </div>
 		</div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="firstN" type="text" class="validate" name="firstN">
+          <input id="firstN" type="text" class="validate" name="firstN" required>
           <label for="first_name">First Name</label>
         </div>
         <div class="input-field col s6">
-          <input id="lastN" type="text" class="validate" name="lastN">
+          <input id="lastN" type="text" class="validate" name="lastN" required>
           <label for="last_name">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate" name="password">
+          <input id="password" type="password" class="validate" name="password" required>
           <label for="password">Password</label>
         </div>
       </div>
@@ -99,7 +106,7 @@
           
         </div>
       </div>
-                  <button type="submit">Register</button>
+                  <button class="btn-large waves-effect waves-light teal lighten-1" type="submit">Register</button>
     </form>
         </div>
         <br><br>
@@ -114,7 +121,7 @@
   </div>
 
 
-  
+  <a name="connect"></a>
   <footer class="page-footer teal">
     <div class="container">
       <div class="row">
@@ -150,6 +157,8 @@
       Made by Joel Evans, Sebastian Cousins &amp Sean Huff
       </div>
     </div>
+
+
   </footer>
 
     {% if usernameNotAvailable == True %}
