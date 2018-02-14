@@ -22,6 +22,9 @@ def register(request):
     print('Registation')
     #Note the email will be the userName and the email
 
+    context = {}
+    context['usernameNotAvailable'] = False
+
     if(request.POST):
 
         userName = request.POST.get('username')
@@ -29,6 +32,7 @@ def register(request):
         firstN = request.POST.get('firstN')
         lastN = request.POST.get('lastN')
         isPaid = request.POST.get('paid')
+
 
         print(userName)
 
@@ -39,9 +43,9 @@ def register(request):
         freeUser.permissions.add(downloadFreeFiles)
 
         if(User.objects.filter(username=userName).exists()):
-            context = {}
-            context['userNameAvailable'] = False
+            context['usernameNotAvailable'] = True
             return render(request, 'register.html', context=context)
+
 
         else:
             #If wer get everything from the request
@@ -72,11 +76,11 @@ def register(request):
 
                 login(newUser)
 
-                return render(request, 'index.html' )
+                return render(request, 'index.html', context=context )
             else:
                 return HttpResponse(400, 'Please include all of the informaiton')
 
-    return render(request, 'register.html')
+    return render(request, 'register.html', context=context)
 
 
 @csrf_exempt
@@ -86,10 +90,10 @@ def checkUserName(request):
 
         userName = request.POST.get('username')
         if (User.objects.filter(username=userName).exists()):
-            data['available'] = True
+            data['available'] = False
             return HttpResponse(json.dumps(data), content_type='application/json')
         else:
-            data['available'] = False
+            data['available'] = True
             return HttpResponse(json.dumps(data), content_type='application/json')
 
 

@@ -16,22 +16,17 @@
   <script src=" {% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' %} "></script>
     <script type="application/javascript">
-        {% if userNameAvailable == False %}
-            function userNameAlert(){
-              Materialize.toast('That Email has been used please user another', 5000) // 4000 is the duration of the toast
-            }
-
-            $(document).ready(userNameAlert);
-        {% endif %}
 
         function CheckId() {
         $.post('/checkUserName', {username: $('#username').val()},
             function(data){
+                console.log(data);
+
                 if(data['available'] == "True"){
                     console.log("Email is good");
                 } else {
-                    console.log("Email is bad");
-                      Materialize.toast('That Email has been used please user another', 5000) // 4000 is the duration of the toast
+                    console.log("Email is Good");
+                    Materialize.toast('That Email has been used please user another', 5000)
                 }
         });
         }
@@ -156,6 +151,15 @@
       </div>
     </div>
   </footer>
+
+    {% if usernameNotAvailable == True %}
+        <script type="application/javascript">
+            function userNameAlert(){
+              Materialize.toast('That Email has been used please user another', 5000)
+            }
+            $(document).ready(userNameAlert);
+        </script>
+    {% endif %}
 
 
   </body>

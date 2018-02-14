@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dba85dc2-7b85-4c26-8900-c319dae05f43" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/PageHTML/login.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/PageHTML/register.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/DataWebPage/urls.py" afterPath="$PROJECT_DIR$/SystemDesign/code/Backend/DataWebPage/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py" afterPath="$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/index.html" afterPath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/login.html" afterPath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/register.html" afterPath="$PROJECT_DIR$/SystemDesign/code/Backend/templates/register.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,8 +55,8 @@
           <file leaf-file-name="register.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/templates/register.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="390">
-                  <caret line="33" column="89" lean-forward="false" selection-start-line="33" selection-start-column="89" selection-end-line="33" selection-end-column="89" />
+                <state relative-caret-position="301">
+                  <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -75,8 +69,8 @@
           <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="130">
-                  <caret line="40" column="58" lean-forward="false" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+                <state relative-caret-position="296">
+                  <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#45#0" expanded="true" />
                   </folding>
@@ -129,8 +123,8 @@
         <option value="$PROJECT_DIR$/SystemDesign/code/Backend/templates/index.html" />
         <option value="$PROJECT_DIR$/SystemDesign/code/Backend/static/js/custome.js" />
         <option value="$PROJECT_DIR$/SystemDesign/code/Backend/DataWebPage/urls.py" />
-        <option value="$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py" />
         <option value="$PROJECT_DIR$/SystemDesign/code/Backend/templates/register.html" />
+        <option value="$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py" />
       </list>
     </option>
   </component>
@@ -729,8 +723,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="2" lean-forward="false" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
+        <state relative-caret-position="123">
+          <caret line="207" column="23" lean-forward="true" selection-start-line="207" selection-start-column="23" selection-end-line="207" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -753,21 +747,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py">
+    <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="40" column="58" lean-forward="false" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="301">
+          <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/templates/register.html">
+    <entry file="file://$PROJECT_DIR$/SystemDesign/code/Backend/WebPage/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="33" column="89" lean-forward="false" selection-start-line="33" selection-start-column="89" selection-end-line="33" selection-end-column="89" />
-          <folding />
+        <state relative-caret-position="296">
+          <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#45#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
