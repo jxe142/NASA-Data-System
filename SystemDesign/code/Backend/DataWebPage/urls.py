@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib.auth.views import login #logout
-from WebPage.views import logOut, register, home, updateSub, makeFileObjects
+from WebPage.views import logOut, register, home, updateSub, makeFileObjects, checkUserName
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^register$', register, name='register'),
     url(r'^updateSub$', updateSub, name='Update_Sub'),
     url(r'^makeFiles$', makeFileObjects, name='makefiles'),
+    url(r'^checkUserName$', checkUserName, name='checkUserName'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

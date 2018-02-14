@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.contenttypes.models import ContentType
-import os
+import os, json
 from django.conf import settings
 
 @login_required
@@ -17,7 +17,6 @@ def logOut(request):
     return redirect('/login')
 
 
-@csrf_exempt
 # NOTE TODO --> REMOVE ALL THE DEFAULT PERMISSIONS FROM USERS
 def register(request):
     print('Registation')
@@ -31,49 +30,87 @@ def register(request):
         lastN = request.POST.get('lastN')
         isPaid = request.POST.get('paid')
 
+        print(userName)
+
         #Get the free user group and add permissions
         userType = ContentType.objects.get_for_model(User)
         freeUser, created = Group.objects.get_or_create(name='Free Users')
         downloadFreeFiles, created = Permission.objects.get_or_create(name='Free Files',codename='freeF', content_type=userType)
         freeUser.permissions.add(downloadFreeFiles)
 
-        #If wer get everything from the request
-        if(userName, password, firstN, lastN):
-            #make the new user
-            newUser = User()
-            newUser.username = userName
-            newUser.email = userName
-            newUser.set_password(password)
-            newUser.first_name = firstN
-            newUser.last_name = lastN
-            newUser.save()
+        if(User.objects.filter(username=userName).exists()):
+            context = {}
+            context['userNameAvailable'] = False
+            return render(request, 'register.html', context=context)
 
-            print('Made the user')
-
-            #Add them to the free group
-            freeUser.user_set.add(newUser)
-            print('Added to free users')
-            
-            #If they have paid add them to the paid group
-            if(isPaid == True):
-                paidUser, created = Group.objects.get_or_create(name='Paid User')
-                downloadPaidFiles, created = Permission.objects.get_or_create(name='Paid Files',codename='paidF',content_type=userType)
-                paidUser.permissions.add(downloadPaidFiles)
-                paidUser.permissions.add(downloadFreeFiles)
-                paidUser.user_set.add(newUser)
-                print('Added to paid group')
         else:
-            return HttpResponse(400, 'Please include all of the informaiton')
-    
-    return HttpResponse(200, 'User Has Been made')
+            #If wer get everything from the request
+            if( all((userName, password, firstN, lastN))):
+                #make the new user
+                newUser = User()
+                newUser.username = userName
+                newUser.email = userName
+                newUser.set_password(password)
+                newUser.first_name = firstN
+                newUser.last_name = lastN
+                newUser.save()
+
+                print('Made the user')
+
+                #Add them to the free group
+                freeUser.user_set.add(newUser)
+                print('Added to free users')
+
+                #If they have paid add them to the paid group
+                if(isPaid == True):
+                    paidUser, created = Group.objects.get_or_create(name='Paid User')
+                    downloadPaidFiles, created = Permission.objects.get_or_create(name='Paid Files',codename='paidF',content_type=userType)
+                    paidUser.permissions.add(downloadPaidFiles)
+                    paidUser.permissions.add(downloadFreeFiles)
+                    paidUser.user_set.add(newUser)
+                    print('Added to paid group')
+
+                login(newUser)
+
+                return render(request, 'index.html' )
+            else:
+                return HttpResponse(400, 'Please include all of the informaiton')
+
+    return render(request, 'register.html')
+
+
+@csrf_exempt
+def checkUserName(request):
+    if (request.POST):
+        data = {}
+
+        userName = request.POST.get('username')
+        if (User.objects.filter(username=userName).exists()):
+            data['available'] = True
+            return HttpResponse(json.dumps(data), content_type='application/json')
+        else:
+            data['available'] = False
+            return HttpResponse(json.dumps(data), content_type='application/json')
+
+
 
 # Used to let users update their subscription to the site
 # @login_required
 def home(request):
     print('We are home')
+    user = request.user
+    context_dict = {}
+
+
+    if(user):
+        context_dict['isLogedIn'] = True
+        print("user is here")
+    else:
+        print("no user")
+
+
     # file = NasaFiles.objects.get(pk=1118)
     # print(file.file)
-    # context_dict = {}
     # context_dict['file'] = file.file
 
     return render(request, 'index.html')

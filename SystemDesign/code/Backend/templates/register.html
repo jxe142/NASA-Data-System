@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Registration Page</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+    <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src=" {% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %} "></script>
+    <script type="application/javascript">
+        {% if userNameAvailable == False %}
+            function userNameAlert(){
+              Materialize.toast('That Email has been used please user another', 5000) // 4000 is the duration of the toast
+            }
+
+            $(document).ready(userNameAlert);
+        {% endif %}
+
+        function CheckId() {
+        $.post('/checkUserName', {username: $('#username').val()},
+            function(data){
+                if(data['available'] == "True"){
+                    console.log("Email is good");
+                } else {
+                    console.log("Email is bad");
+                      Materialize.toast('That Email has been used please user another', 5000) // 4000 is the duration of the toast
+                }
+        });
+        }
+        function onChange(){
+         $("#username").change( function() {CheckId()});
+        }
+        $(document).ready(onChange);
+   </script>
 </head>
 <body>
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="http://www.nasa.gov" class="brand-logo"><img src="images/nasa_logo0.png" alt="NASA Logo"></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="logout">Logout</a></li>
-      </ul>
+      <a id="logo-container" href="http://www.nasa.gov" class="brand-logo"><img src="{% static 'images/nasa_logo0.png' %}" alt="NASA Logo"></a>
 	  <ul class="right hide-on-med-and-down">
         <li><a href="#">Register</a></li>
       </ul>
@@ -25,6 +53,9 @@
       </ul>
 	  <ul class="right hide-on-med-and-down">
         <li><a href="#">Data Access</a></li>
+      </ul>
+        <ul class="right hide-on-med-and-down">
+        <li><a href="home">Home</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -43,37 +74,44 @@
           <h5 class="header col s12 light"></h5>
         </div>
         <div class="row center">
-         <form class="col s12">
+         <form class="col s12" method="post" >
+             {% csrf_token %}
+		 <div class="row">
+        <div class="input-field col s6">
+          <input id="username" type="email" class="validate" name="username">
+          <label for="username">Enter your email addresss</label>
+        </div>
+		</div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="firstN" type="text" class="validate">
+          <input id="firstN" type="text" class="validate" name="firstN">
           <label for="first_name">First Name</label>
         </div>
         <div class="input-field col s6">
-          <input id="lastN" type="text" class="validate">
+          <input id="lastN" type="text" class="validate" name="lastN">
           <label for="last_name">Last Name</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
+          <input id="password" type="password" class="validate" name="password">
           <label for="password">Password</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="paid" type="hidden" value="false">
+          <input id="paid" type="hidden" value="false" name="paid">
           
         </div>
       </div>
-      
+                  <button type="submit">Register</button>
     </form>
         </div>
         <br><br>
 
       </div>
     </div>
-    <div class="parallax"><img src="images/background1.png" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="{% static 'images/background1.png' %}" alt="Unsplashed background img 1"></div>
   </div>
 
 
@@ -119,11 +157,6 @@
     </div>
   </footer>
 
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
 
   </body>
 </html>
