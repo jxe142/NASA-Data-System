@@ -101,23 +101,39 @@ def checkUserName(request):
 # Used to let users update their subscription to the site
 # @login_required
 def home(request):
-    print('We are home')
+    freeUser, created = Group.objects.get_or_create(name='Free Users')
+    paidUser, created = Group.objects.get_or_create(name='Paid User')
     user = request.user
     context_dict = {}
 
 
-    if(user):
-        context_dict['isLogedIn'] = True
-        print("user is here")
-    else:
-        print("no user")
 
+    if user.is_authenticated: #This means they are logged in
+        Groups = user.groups.all()
+        if paidUser in Groups: #Get the paid objects
+            figType = FileType.objects.get(fileTypeName = 'Fig Files')
+            speType = FileType.objects.get(fileTypeName= 'SPE Files')
+            figFiles = NasaFiles.objects.filter(type=figType).order_by('name')
+            speFiles = NasaFiles.objects.filter(type=speType).order_by('name')
+
+            context_dict['figFiles'] = figFiles
+            context_dict['speFiles'] = speFiles
+            context_dict['paid'] = True
+            print("Got paid files")
+
+        crossType = FileType.objects.get(fileTypeName = 'Cross Sections')
+        dataType = FileType.objects.get(fileTypeName='Data Sheets')
+        crossFiles = NasaFiles.objects.filter(type=crossType).order_by('name')
+        dataFiles = NasaFiles.objects.filter(type=dataType).order_by('name')
+        context_dict['crossFiles'] = crossFiles
+        context_dict['dataFiles'] = dataFiles
+        print("Got free files")
 
     # file = NasaFiles.objects.get(pk=1118)
     # print(file.file)
     # context_dict['file'] = file.file
 
-    return render(request, 'index.html')
+    return render(request, 'index.html', context=context_dict)
 
 @csrf_exempt
 @login_required

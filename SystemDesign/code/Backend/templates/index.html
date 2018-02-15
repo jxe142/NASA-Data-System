@@ -141,7 +141,139 @@
           </div>
         </div>
       </div>
-FILES HERE....
+
+            {% if paid == True %}
+            <!-- Buttons -->
+                <div class="row">
+                    <div  class="col s4">
+                      <a width="" href="#modal1" id="download-button2" class="btn-large modal-trigger waves-effect waves-light teal lighten-1">GET DATA</a>
+                    </div>
+                    <div  class="col s4">
+                      <a href="#modal2" class="btn-large modal-trigger waves-effect waves-light teal lighten-1">GET DATA</a>
+                    </div>
+                    <div  class="col s4">
+                      <a href="#modal3" class="btn-large modal-trigger waves-effect waves-light teal lighten-1">GET DATA</a>
+                    </div>
+                </div>
+
+
+            <!-- Modal Structure -->
+              <div id="modal1" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>Velocity Data</h4>
+
+                    <div class="col s6">
+                        {% for file in dataFiles  %}
+                            <a href="media/{{file.file}}" class="btn waves-effect waves-light teal lighten-1">{{file.name}} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                </div>
+              </div>
+
+
+            <div id="modal2" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>3D Data</h4>
+
+                    <div class="col s6">
+                        {% for file in figFiles  %}
+                            <a href="media/{{file.file}}" class="btn waves-effect waves-light teal lighten-1">{{file.name}} </a>
+                        {% endfor %}
+
+                        <br/><br/>
+
+                        {% for file in speFiles  %}
+                            <a href="media/{{file.file}}" class="btn waves-effect waves-light teal lighten-1">{{file.name}} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                </div>
+              </div>
+
+            <div id="modal3" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>Cross Data</h4>
+
+                    <div class="col s6">
+                        {% for file in crossFiles  %}
+                            <a href="media/{{file.file}}" class="btn waves-effect waves-light teal lighten-1">{{file.name}} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                </div>
+              </div>
+        {% else %}
+            {% if user.is_authenticated %}
+            <!-- Buttons -->
+                <div class="row">
+                    <div  class="col s4">
+                      <a width="" href="#modal1" id="download-button2" class="btn-large modal-trigger waves-effect waves-light teal lighten-1">GET DATA</a>
+                    </div>
+                    <div  class="col s4">
+                      <a class="btn-large waves-effect waves-light teal lighten-1" onclick="Materialize.toast('You need to licence to download 3D Data', 10000)">GET DATA</a>
+                    </div>
+                    <div  class="col s4">
+                      <a href="#modal3" class="btn-large modal-trigger waves-effect waves-light teal lighten-1">GET DATA</a>
+                    </div>
+                </div>
+
+            <!-- Modal Structure -->
+                <div id="modal1" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>Velocity Data</h4>
+
+                    <div class="col s6">
+                        {% for file in dataFiles  %}
+                            <a href="media/{{file.file}}" class="btn waves-effect waves-light teal lighten-1">{{file.name}} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                    </div>
+                </div>
+              </div>
+
+            <div id="modal3" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <h4>Cross Data</h4>
+
+                    <div class="col s6">
+                        {% for file in crossFiles  %}
+                            <a href="media/{{file.file}}" class="btn waves-effect waves-light teal lighten-1">{{file.name}} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+                </div>
+              </div>
+
+            {% else %}
+                 <div class="row">
+                    <div  class="col s4">
+                      <a class="btn-large waves-effect waves-light teal lighten-1" onclick="Materialize.toast('You need to be logged in to download Data', 8000)">GET DATA</a>
+                    </div>
+                    <div  class="col s4">
+                      <a class="btn-large  waves-effect waves-light teal lighten-1" onclick="Materialize.toast('You need to be logged in to download Data', 8000)">GET DATA</a>
+                    </div>
+                    <div  class="col s4">
+                      <a class="btn-large  waves-effect waves-light teal lighten-1" onclick="Materialize.toast('You need to be logged in to download Data', 8000)">GET DATA</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+
+
     </div>
   </div>
 
@@ -280,6 +412,10 @@ FILES HERE....
             let hashTop = document.querySelector(`#${hash}`).offsetTop;
             window.scrollTop = hashTop;
         }
+      });
+
+      $(document).ready(function(){
+        $('.modal').modal();
       });
 
   </script>
