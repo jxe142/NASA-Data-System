@@ -22,10 +22,10 @@
             function(data){
                 console.log(data);
 
-                if(data['available'] == "True"){
+                if(data['available'] == true){
                     console.log("Email is good");
                 } else {
-                    console.log("Email is Good");
+                    console.log("Email is bad");
                     Materialize.toast('That Email has been used please user another', 5000)
                 }
         });
