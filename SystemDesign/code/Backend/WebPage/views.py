@@ -135,7 +135,7 @@ def home(request):
 
     return render(request, 'index.html', context=context_dict)
 
-@csrf_exempt
+
 @login_required
 def updateSub(request):
     if request.method == 'POST':
@@ -150,11 +150,10 @@ def updateSub(request):
             paidUser.user_set.add(user)
             print('Added to the group')
 
-            return HttpResponse(200, 'You are now a paid user')
     else:
         print(request.method)
 
-    return HttpResponse(400, 'You need to be logined in order to gain a licences')
+    return render(request, 'license.html')
 
 
 def makeFileObjects(request):

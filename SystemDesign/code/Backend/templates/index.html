@@ -40,9 +40,17 @@
         <li><a href="#contact">Contact Us</a></li>
       </ul>
 
+        {% if user.is_authenticated %}
+        <ul class="right hide-on-med-and-down">
+        <li><a href="updateSub">License</a></li>
+      </ul>
+        {% endif %}
+
 	  <ul class="right hide-on-med-and-down">
         <li><a href="#data">Data Access</a></li>
       </ul>
+
+
 
       <ul id="nav-mobile" class="side-nav">
         <li><a href="#">Test</a></li>
