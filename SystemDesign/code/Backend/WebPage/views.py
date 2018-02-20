@@ -74,7 +74,7 @@ def register(request):
                     paidUser.user_set.add(newUser)
                     print('Added to paid group')
 
-                login(newUser)
+                login(user=newUser, request=request)
 
                 return render(request, 'index.html', context=context )
             else:
