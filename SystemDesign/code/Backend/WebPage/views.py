@@ -76,7 +76,7 @@ def register(request):
 
                 login(user=newUser, request=request)
 
-                return render(request, 'index.html', context=context )
+                return redirect("/home", request=request)
             else:
                 return HttpResponse(400, 'Please include all of the informaiton')
 
@@ -157,6 +157,11 @@ def updateSub(request):
 
 
 def makeFileObjects(request):
+
+    if(FileType.objects.get(fileTypeName="General")): #if all files have been made take them home
+        return redirect("/home")
+
+
     rootDir = settings.MEDIA_ROOT
     request = 'http://localhost:8000/media'
 
