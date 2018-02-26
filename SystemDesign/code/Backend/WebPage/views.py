@@ -159,50 +159,53 @@ def updateSub(request):
 def makeFileObjects(request):
 
     if(FileType.objects.get(fileTypeName="General")): #if all files have been made take them home
-        return redirect("/home")
+        return redirect("/home", request)
+    elif(request.user.is_superuser):
+        rootDir = settings.MEDIA_ROOT
+        request = 'http://localhost:8000/media'
 
+        for dirName, subdirList, fileList in os.walk(rootDir):
+            print('Found directory: %s' % dirName)
+            path = dirName
+            rPath = path.split("media")
 
-    rootDir = settings.MEDIA_ROOT
-    request = 'http://localhost:8000/media'
-
-    for dirName, subdirList, fileList in os.walk(rootDir):
-        print('Found directory: %s' % dirName)
-        path = dirName
-        rPath = path.split("media")
-
-        if rPath[1] != "":
-            typeName = rPath[1].replace("/","")
-            currentType = FileType()
-            currentType.fileTypeName = typeName
-            currentType.save()
-        else:
-            currentType = FileType()
-            currentType.fileTypeName = "General"
-            currentType.save()
-
-        #here we make the file object for each of the objects
-        for fname in fileList:
-
-            if(rPath[1] == ""):
-                pass
-                print(fname)
-                print(rPath)
-                currentFile = NasaFiles()
-                currentFile.name = fname
-                currentFile.file = fname
-                currentFile.type = currentType
-                currentFile.save()
+            if rPath[1] != "":
+                typeName = rPath[1].replace("/","")
+                currentType = FileType()
+                currentType.fileTypeName = typeName
+                currentType.save()
             else:
-                pass
-                print(rPath)
-                print(fname)
-                currentFile = NasaFiles()
-                currentFile.name = fname
-                currentFile.file = rPath[1] + '/'+ fname
-                currentFile.type = currentType
-                currentFile.save()
+                currentType = FileType()
+                currentType.fileTypeName = "General"
+                currentType.save()
 
-    return HttpResponse(200, 'It worked')
+            #here we make the file object for each of the objects
+            for fname in fileList:
+
+                if(rPath[1] == ""):
+                    pass
+                    print(fname)
+                    print(rPath)
+                    currentFile = NasaFiles()
+                    currentFile.name = fname
+                    currentFile.file = fname
+                    currentFile.type = currentType
+                    currentFile.save()
+                else:
+                    pass
+                    print(rPath)
+                    print(fname)
+                    currentFile = NasaFiles()
+                    currentFile.name = fname
+                    currentFile.file = rPath[1] + '/'+ fname
+                    currentFile.type = currentType
+                    currentFile.save()
+
+        return HttpResponse(200, 'It worked')
+    else:
+        return redirect("/home", request)
+
+
 
 # Used to allow people to login
 # def login(request):
