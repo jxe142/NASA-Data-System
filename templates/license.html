@@ -40,9 +40,12 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="http://www.nasa.gov" class="brand-logo"><img src="{% static 'images/nasa_logo0.png' %}" alt="NASA Logo"></a>
-	  <ul class="right hide-on-med-and-down">
-        <li><a href="#">Register</a></li>
+
+      {% if user.is_authenticated %}
+        <ul class="right hide-on-med-and-down">
+        <li><a href="logout">Logout</a></li>
       </ul>
+        {% endif %}
 
         {% if user.is_authenticated == False %}
 	  <ul class="right hide-on-med-and-down">

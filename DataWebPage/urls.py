@@ -31,6 +31,6 @@ urlpatterns = [
     url(r'^updateSub$', updateSub, name='Update_Sub'),
     url(r'^makeFiles$', makeFileObjects, name='makefiles'),
     url(r'^checkUserName$', checkUserName, name='checkUserName'),
-    # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^', home, name='home'),
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
