@@ -31,7 +31,7 @@ SECRET_KEY = '51-%sialik@_be+htvjmrv#k1nh3*))4%buioconr7)^cq5^^k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','0.0.0.0']
+ALLOWED_HOSTS = ['localhost','0.0.0.0', 'fast-reaches-42410.herokuapp.com']
 
 
 # Application definition
@@ -88,7 +88,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
