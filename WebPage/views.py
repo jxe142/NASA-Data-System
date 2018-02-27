@@ -158,7 +158,7 @@ def updateSub(request):
 
 def makeFileObjects(request):
 
-    if(FileType.objects.get(fileTypeName="General")): #if all files have been made take them home
+    if(FileType.objects.filter(fileTypeName="General")): #if all files have been made take them home
         return redirect("/home", request)
     elif(request.user.is_superuser):
         rootDir = settings.MEDIA_ROOT
